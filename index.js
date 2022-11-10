@@ -43,7 +43,7 @@ async function run() {
             res.send(user)
         })
 
-        ///review
+        // /review
         app.post('/reviews', async (req, res) => {
             const review = req.body;
             const sendReview = await reviewName.insertOne(review);
@@ -52,9 +52,9 @@ async function run() {
 
         app.get('/reviews', async (req, res) => {
             let query = {};
-            if (req.query.email) {
+            if (req.query.service) {
                 query = {
-                    email: req.query.email
+                    service: req.query.service
                 }
             }
             const cursor = reviewName.find(query);
