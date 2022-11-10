@@ -82,6 +82,21 @@ async function run() {
             const getMyReview = await cursor.toArray();
             res.send(getMyReview)
         })
+
+        app.get('/reviewsUser/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const user = await userReview.findOne(query);
+            res.send(user)
+        })
+
+        app.delete('/reviewsUser/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await userReview.deleteOne(query);
+            res.send(result)
+
+        })
     }
     finally {
 
