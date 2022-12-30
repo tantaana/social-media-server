@@ -24,6 +24,26 @@ async function run() {
         const serviceName = client.db('docMike').collection('services');
         const reviewName = client.db('docMike').collection('reviews');
         const userReview = client.db('docMike').collection('reviews');
+        const postName = client.db('socialMedia').collection('postData');
+
+        app.post('/posts', async (req, res) => {
+            const posts = req.body;
+            const result = await postName.insertOne(posts);
+            res.send(result)
+        });
+
+        app.get('/postdata', async (req, res) => {
+            const query = {};
+            const options = await postName.find(query).toArray();
+            res.send(options)
+        })
+
+        app.get('/details/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const user = await postName.findOne(query);
+            res.send(user)
+        })
 
         app.get('/services', async (req, res) => {
             const query = {};
